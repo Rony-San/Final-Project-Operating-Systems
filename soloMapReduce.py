@@ -30,8 +30,8 @@ def map_reduce(filename, num_chunks):
     return reduced, end_time - start_time
 
 if __name__ == "__main__":
-    filename = "big.txt"
-    num_chunks =  6 # Limitando a 2 nodos
+    filename = "big1GB.txt"
+    num_chunks =  2 # Limitando a 2 nodos
     word_count, elapsed_time = map_reduce(filename, num_chunks)
     # print("Word count:", word_count)
     print("Elapsed time:", elapsed_time, "seconds")

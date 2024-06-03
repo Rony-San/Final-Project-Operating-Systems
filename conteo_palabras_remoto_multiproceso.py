@@ -150,8 +150,9 @@ if __name__ == "__main__":
 
     nodes = [
         {"host": "192.168.1.8", "username": "kali", "password": "kali"},
-        # {"host": "192.168.1.9", "username": "kali", "password": "kali"},
-        # {"host": "192.168.1.3", "username": "kali", "password": "kali"}
+        {"host": "192.168.1.9", "username": "kali", "password": "kali"},
+        {"host": "192.168.1.2", "username": "kali", "password": "kali"},
+        {"host": "192.168.1.10", "username": "kali", "password": "kali"}
     ]
 
     word_count, elapsed_time, node_times = map_reduce(filename, nodes)

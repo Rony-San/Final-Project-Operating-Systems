@@ -1,29 +1,35 @@
 import os
 
-# Ruta del archivo de texto inicial
-archivo_inicial = "big.txt"
+def create_large_file(input_file, output_file, desired_size_gb):
+    # Convert desired size from GB to bytes
+    desired_size_bytes = desired_size_gb * 1024 * 1024 * 1024
+    
+    # Read the content of the input file
+    with open(input_file, 'r') as f:
+        content = f.read()
+    
+    # Calculate how many times the content needs to be repeated to reach the desired size
+    content_size_bytes = len(content.encode('utf-8'))
+    repetitions = int(desired_size_bytes // content_size_bytes + 1)
 
-# Ruta del archivo de texto resultante
-archivo_resultante = "texto_resultante.txt"
-# 
-# Tamaño máximo en bytes (2 GB)
-tamanio_maximo = 2 * 1024 * 1024 * 1024  # 2 GB en bytes
+    # Write the repeated content to the output file
+    with open(output_file, 'w') as f:
+        for _ in range(repetitions):
+            f.write(content)
+            # Check the size of the output file and stop if it has reached the desired size
+            if os.path.getsize(output_file) >= desired_size_bytes:
+                break
 
-# Leer el contenido del archivo inicial
-with open(archivo_inicial, 'r') as f:
-    contenido = f.read()
+    # Verify the final size of the output file
+    final_size_bytes = os.path.getsize(output_file)
+    
+    # Print the final size of the output file in GB
+    print(f"Tamaño del archivo resultante: {final_size_bytes / (1024 * 1024 * 1024):.2f} GB")
 
-# Multiplicar el contenido hasta que el tamaño total sea aproximadamente 2 GB
-contenido_multiplicado = ""
-while len(contenido_multiplicado.encode('utf-8')) < tamanio_maximo:
-    contenido_multiplicado += contenido
+# File paths and desired size
+input_file = "big.txt"
+output_file = "big2GB.txt"
+desired_size_gb = 2  # 2 GB
 
-# Escribir el contenido multiplicado en el archivo resultante
-with open(archivo_resultante, 'w') as f:
-    f.write(contenido_multiplicado)
-
-# Verificar el tamaño final del archivo resultante
-tamanio_archivo_resultante = os.path.getsize(archivo_resultante)
-
-# Imprimir el tamaño final del archivo resultante en GB
-print(f"Tamaño del archivo resultante: {tamanio_archivo_resultante / (1024 * 1024 * 1024):.2f} GB")
+# Create the large file
+create_large_file(input_file, output_file, desired_size_gb)
